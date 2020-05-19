@@ -15,7 +15,7 @@ pipeline {
                WORKSPACE = "${WORKSPACE}/jenkins"
             }
             steps {
-                echo "Current workspace${WORKSPACE}"
+                echo "Current workspace: ${WORKSPACE}"
                 //sh(label: "Cloning project", script: "git clone https://github.com/swiftugandan/simple-node-js-react-npm-app.git")
             }
         }
