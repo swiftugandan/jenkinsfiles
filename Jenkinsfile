@@ -17,35 +17,34 @@ pipeline {
         }
         stage('Read Properties') {
             steps {
-                dir(simple-node-js-react-npm-app) {
-                    script {
-                        props = readJSON file: './release-properties.json'
+                script {
+                    dir(simple-node-js-react-npm-app) {
+                    props = readJSON file: './release-properties.json'
                     }
                 }
             }
         }
         stage('Build') {
-            dir(simple-node-js-react-npm-app) {
-                steps {
+            steps {
+                dir(simple-node-js-react-npm-app) {
                     echo "props.mavenComponents[0]: ${props.mavenComponents[0]}"
                     sh 'npm install'
                 }
             }
         }
         stage('Test') {
-            dir(simple-node-js-react-npm-app) {
-                steps {
-                    echo "props.mavenComponents[0]: ${props.mavenComponents[0]}"
-                    sh './jenkins/scripts/test.sh'
+            steps {
+                dir(simple-node-js-react-npm-app) {
+                echo "props.mavenComponents[0]: ${props.mavenComponents[0]}"
+                sh './jenkins/scripts/test.sh'
                 }
             }
         }
         stage('Deliver') {
-            dir(simple-node-js-react-npm-app) {
-                steps {
-                    sh './jenkins/scripts/deliver.sh'
-                    input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                    sh './jenkins/scripts/kill.sh'
+            steps {dir(simple-node-js-react-npm-app) {
+                sh './jenkins/scripts/deliver.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
                 }
             }
         }
