@@ -17,6 +17,9 @@ pipeline {
             steps {
                 echo "Current workspace: ${WORKSPACE}"
                 //sh(label: "Cloning project", script: "git clone https://github.com/swiftugandan/simple-node-js-react-npm-app.git")
+                script {
+                    echo sh(script: 'pwd', , returnStdout: true).trim()
+                }
             }
         }
         // stage('Read Properties') {
