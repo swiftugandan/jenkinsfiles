@@ -19,6 +19,10 @@ pipeline {
                 //sh(label: "Cloning project", script: "git clone https://github.com/swiftugandan/simple-node-js-react-npm-app.git")
                 script {
                     echo sh(script: 'pwd', , returnStdout: true).trim()
+                    dir("../") {
+                        echo sh(script: 'pwd', , returnStdout: true).trim()
+                    }
+                    echo sh(script: 'pwd', , returnStdout: true).trim()
                 }
             }
         }
