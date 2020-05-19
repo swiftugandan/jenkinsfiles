@@ -21,6 +21,9 @@ pipeline {
                     echo sh(script: 'pwd', , returnStdout: true).trim()
                     dir("../") {
                         echo sh(script: 'pwd', , returnStdout: true).trim()
+                        dir("Testing_the_Solution_master"){
+                            echo sh(script: 'pwd', , returnStdout: true).trim()
+                        }
                     }
                     echo sh(script: 'pwd', , returnStdout: true).trim()
                 }
