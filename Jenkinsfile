@@ -19,16 +19,13 @@ pipeline {
                     def PWD = increment_version('1.0.0', 'release')
                     echo "PWD = ${PWD}"
                 }
-                }
             }
-
-
         }
+    }
 }
 
 def increment_version(current_ver, type) {
-    script {
-    PWD = sh (script: '''#!/bin/bash
+    return sh (script: '''#!/bin/bash
     # $1 - semver string
     # $2 - level to incr {release,minor,major} - release by default
     function incr_semver() { 
@@ -59,8 +56,6 @@ def increment_version(current_ver, type) {
         esac
         echo "$major.$minor.$release"
     }
-
-    incr_semver 1.0.0 release
     ''',
     returnStdout: true
     ).trim()
