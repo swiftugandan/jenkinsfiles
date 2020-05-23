@@ -1,5 +1,6 @@
 def props
 pipeline {
+    agent any
     environment {
         CI = 'true'
     }
