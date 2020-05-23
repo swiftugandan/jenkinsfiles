@@ -29,7 +29,7 @@ pipeline {
 
                         version=$1
 
-                        a=( ${version//./ } )
+                        a=( ${version//./} )
                         if [ ${#a[@]} -ne 3 ]
                         then
                             echo "version format should be major.minor.patch"
@@ -37,20 +37,20 @@ pipeline {
                         fi
 
 
-                        if [ $2 eq 'major' ]
+                        if [ $2 -eq 'major' ]
                         then
                             ((a[0]++))
                             a[1]=0
                             a[2]=0
                         fi
 
-                        if [ $2 eq 'minor' ]
+                        if [ $2 -eq 'minor' ]
                         then
                             ((a[1]++))
                             a[2]=0
                         fi
 
-                        if [ $2 eq 'patch' ]
+                        if [ $2 -eq 'patch' ]
                             then
                             ((a[2]++))
                         fi
