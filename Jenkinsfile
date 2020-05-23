@@ -24,7 +24,7 @@ pipeline {
                     echo sh(script: 'pwd', , returnStdout: true).trim()
                 }
                 script {
-                    PWD = sh (script: '''#!/bin/bash
+                    PWD = sh (script: '''
                     function incr_semver() { 
                         echo "The param is $1"
                     }
