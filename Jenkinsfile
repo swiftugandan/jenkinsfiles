@@ -25,11 +25,41 @@ pipeline {
                 }
                 script {
                     PWD = sh (script: '''
-                    function incr_semver() { 
-                        echo "The param is $1"
+                    function incr_semver() {
+
+                        version=$1
+
+                        a=( ${version//./ } )
+                        if [ ${#a[@]} -ne 3 ]
+                        then
+                            echo "version format should be major.minor.patch"
+                            exit 1
+                        fi
+
+
+                        if [ $2 eq 'major' ]
+                        then
+                            ((a[0]++))
+                            a[1]=0
+                            a[2]=0
+                        fi
+
+                        if [ $2 eq 'minor' ]
+                        then
+                            ((a[1]++))
+                            a[2]=0
+                        fi
+
+                        if [ $2 eq 'patch' ]
+                            then
+                            ((a[2]++))
+                        fi
+
+                        echo "${a[0]}.${a[1]}.${a[2]}"
+
                     }
 
-                    incr_semver 1.0.0
+                    incr_semver 1.0.0 major
                     ''',
                     returnStdout: true
                     ).trim()
