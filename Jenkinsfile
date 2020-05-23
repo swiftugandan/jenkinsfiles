@@ -24,7 +24,9 @@ pipeline {
                     echo sh(script: 'pwd', , returnStdout: true).trim()
                 }
                 script {
-                    PWD = sh (script: 'pwd',
+                    PWD = sh (script: '''
+                    pwd
+                    ''',
                     returnStdout: true
                     ).trim()
 
