@@ -24,7 +24,7 @@ pipeline {
                     echo sh(script: 'pwd', , returnStdout: true).trim()
                 }
                 script {
-                    PWD = sh (script: '''
+                    PWD = sh (script: '''#!/bin/bash
                     # $1 - semver string
                     # $2 - level to incr {release,minor,major} - release by default
                     function incr_semver() { 
