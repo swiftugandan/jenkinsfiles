@@ -28,7 +28,7 @@ def increment_version(semver, level) {
     return sh (script: '''#!/bin/bash
         echo "$semver $level"
         IFS='.' read -ra ver <<< "$semver"
-        [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && return 1
+        [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && exit 1
 
         release=${ver[2]}
         minor=${ver[1]}
@@ -49,7 +49,7 @@ def increment_version(semver, level) {
             ;;
             *)
                 echo "Invalid level passed"
-                return 2
+                exit 2
         esac
         echo "$major.$minor.$release"
     ''',
