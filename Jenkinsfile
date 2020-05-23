@@ -3,6 +3,8 @@ pipeline {
     agent any
     environment {
         CI = 'true'
+        semver = "1.0.0"
+        level = "minor"
     }
     stages {
         stage('Clone Project Repository') {
@@ -26,8 +28,8 @@ pipeline {
 
 def increment_version(semver, level) {
     return sh (script: '''#!/bin/bash
-        semver="1.0.0"
-        level="minor"
+        semver=env.semver
+        level=env.level
         IFS='.' read -ra ver <<< "$semver"
         [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && exit 1
 
