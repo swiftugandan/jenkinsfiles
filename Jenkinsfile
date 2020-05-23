@@ -27,24 +27,24 @@ pipeline {
 def increment_version(semver, level) {
     return sh (script: '''#!/bin/bash
         semver="1.0.0"
-        level="major"
+        level="minor"
         IFS='.' read -ra ver <<< "$semver"
         [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && exit 1
 
-        release=${ver[2]}
+        patch=${ver[2]}
         minor=${ver[1]}
         major=${ver[0]}
 
         case $level in
-            release)
-                release=$((release+1))
+            patch)
+                patch=$((patch+1))
             ;;
             minor)
-                release=0
+                patch=0
                 minor=$((minor+1))
             ;;
             major)
-                release=0
+                patch=0
                 minor=0
                 major=$((major+1))
             ;;
@@ -52,7 +52,7 @@ def increment_version(semver, level) {
                 echo "Invalid level passed"
                 exit 2
         esac
-        echo "$major.$minor.$release"
+        echo "$major.$minor.$patch"
     ''',
     returnStdout: true
     ).trim()
