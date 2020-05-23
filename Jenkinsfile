@@ -16,7 +16,7 @@ pipeline {
                         }
                     }
                     echo sh(script: 'pwd', , returnStdout: true).trim()
-                    def PWD = increment_version('1.0.0', 'release')
+                    def PWD = increment_version("1.0.0", "release")
                     echo "PWD = ${PWD}"
                 }
             }
@@ -26,6 +26,7 @@ pipeline {
 
 def increment_version(semver, level) {
     return sh (script: '''#!/bin/bash
+        echo "$semver $level"
         IFS='.' read -ra ver <<< "$semver"
         [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && return 1
 
