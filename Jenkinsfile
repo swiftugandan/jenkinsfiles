@@ -24,14 +24,14 @@ pipeline {
     }
 }
 
-def increment_version(current_ver, level) {
+def increment_version(semver, level) {
     return sh (script: '''#!/bin/bash
     # $1 - semver string
     # $2 - level to incr {release,minor,major} - release by default
     function incr_semver() { 
-        IFS='.' read -ra ver <<< "$current_ver"
+        IFS='.' read -ra ver <<< "$1"
         [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && return 1
-        [[ "$#" -eq 1 ]] && level='release' || level=$level
+        [[ "$#" -eq 1 ]] && level='release' || level=$2
 
         release=${ver[2]}
         minor=${ver[1]}
@@ -56,6 +56,8 @@ def increment_version(current_ver, level) {
         esac
         echo "$major.$minor.$release"
     }
+
+    echo incr_semver $semver $level
     ''',
     returnStdout: true
     ).trim()
