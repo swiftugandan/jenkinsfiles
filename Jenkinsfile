@@ -28,8 +28,6 @@ pipeline {
 
 def increment_version(semver, level) {
     return sh (script: '''#!/bin/bash
-        semver=env.semver
-        level=env.level
         IFS='.' read -ra ver <<< "$semver"
         [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && exit 1
 
