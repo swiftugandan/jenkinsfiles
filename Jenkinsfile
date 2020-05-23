@@ -51,7 +51,7 @@ pipeline {
                         echo "$major.$minor.$release"
                     }
 
-                    incr_semver 1.0.0 major
+                    incr_semver 1.0.0 release
                     ''',
                     returnStdout: true
                     ).trim()
