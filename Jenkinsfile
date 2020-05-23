@@ -57,7 +57,7 @@ def increment_version(semver, level) {
         echo "$major.$minor.$release"
     }
 
-    echo incr_semver $semver $level
+    echo ${incr_semver $semver $level}
     ''',
     returnStdout: true
     ).trim()
