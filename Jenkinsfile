@@ -27,7 +27,7 @@ pipeline {
 def increment_version(semver, level) {
     return sh (script: '''#!/bin/bash
         semver="1.0.0"
-        level="release"
+        level="major"
         IFS='.' read -ra ver <<< "$semver"
         [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && exit 1
 
