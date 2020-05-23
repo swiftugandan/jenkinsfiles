@@ -19,7 +19,7 @@ pipeline {
                     echo sh(script: 'pwd', , returnStdout: true).trim()
                 }
                 script {
-                    PWD = sh (script: '''#!/bin/sh
+                    PWD = sh (script: '''#!/bin/bash
                     function incr_semver() {
 
                         version=$1
