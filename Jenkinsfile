@@ -3,7 +3,7 @@ pipeline {
     agent any
     environment {
         CI = 'true'
-        semver = "1.0.0"
+        semver = "1.99.0"
         level = "minor"
     }
     stages {
