@@ -20,38 +20,35 @@ pipeline {
                 }
                 script {
                     PWD = sh (script: '''#!/bin/bash
-                    function incr_semver() {
+                    # $1 - semver string
+                    # $2 - level to incr {release,minor,major} - release by default
+                    function incr_semver() { 
+                        IFS='.' read -ra ver <<< "$1"
+                        [[ "${#ver[@]}" -ne 3 ]] && echo "Invalid semver string" && return 1
+                        [[ "$#" -eq 1 ]] && level='release' || level=$2
 
-                        version=$1
+                        release=${ver[2]}
+                        minor=${ver[1]}
+                        major=${ver[0]}
 
-                        IFS='.' read -ra a <<< "$version"
-                        if [ ${#a[@]} -ne 3 ]
-                        then
-                            echo "version format should be major.minor.patch"
-                            exit 1
-                        fi
-
-
-                        if [ $2 -eq 'major' ]
-                        then
-                            ((a[0]++))
-                            a[1]=0
-                            a[2]=0
-                        fi
-
-                        if [ $2 -eq 'minor' ]
-                        then
-                            ((a[1]++))
-                            a[2]=0
-                        fi
-
-                        if [ $2 -eq 'patch' ]
-                            then
-                            ((a[2]++))
-                        fi
-
-                        echo "${a[0]}.${a[1]}.${a[2]}"
-
+                        case $level in
+                            release)
+                                release=$((release+1))
+                            ;;
+                            minor)
+                                release=0
+                                minor=$((minor+1))
+                            ;;
+                            major)
+                                release=0
+                                minor=0
+                                major=$((major+1))
+                            ;;
+                            *)
+                                echo "Invalid level passed"
+                                return 2
+                        esac
+                        echo "$major.$minor.$release"
                     }
 
                     incr_semver 1.0.0 major
