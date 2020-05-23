@@ -29,7 +29,7 @@ pipeline {
 
                         version=$1
 
-                        a=${version//./ }
+                        a=(${version//./ })
                         if [ ${#a[@]} -ne 3 ]
                         then
                             echo "version format should be major.minor.patch"
