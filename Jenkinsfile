@@ -11,11 +11,7 @@ pipeline {
     }
     stages {
         stage('Clone Project Repository') {
-            environment {
-               WORKSPACE = "${WORKSPACE}/jenkins"
-            }
             steps {
-                echo "Current workspace: ${WORKSPACE}"
                 //sh(label: "Cloning project", script: "git clone https://github.com/swiftugandan/simple-node-js-react-npm-app.git")
                 script {
                     echo sh(script: 'pwd', , returnStdout: true).trim()
@@ -27,7 +23,16 @@ pipeline {
                     }
                     echo sh(script: 'pwd', , returnStdout: true).trim()
                 }
+                script {
+                    PWD = sh (script: 'pwd',
+                    returnStdout: true
+                    ).trim()
+
+                    echo "PWD = ${PWD}"
+                }
             }
+
+
         }
         // stage('Read Properties') {
         //     steps {
